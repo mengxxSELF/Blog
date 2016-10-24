@@ -6,7 +6,6 @@ var path = require('path')
 
 exports.setSession = function (sessions ,pathObj = './session.json') {
     var sessionPath = path.resolve(__dirname,pathObj);
-    console.log(sessions)
     fs.writeFileSync(sessionPath,JSON.stringify(sessions))
 }
 exports.getSession = function (pathObj = './session.json') {

@@ -136,12 +136,13 @@ exports.article = function (req,res,next) {
         }
         /* 更新文章数据文件*/
         async.waterfall([function (callback) {
-            sessions = sessions.filter(function (item) {
+            var results = sessions.filter(function (item) {
                 return item.id != req.params.id
             })
+            console.log(results)
             callback(null,sessions)
         }], function (err,sessions) {
-            console.log(sessions)
+            //console.log(sessions)
             if(sessions){
                 auth.setSession(sessions,pathObj);
                 res.json({code:0})
