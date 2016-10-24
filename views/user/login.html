@@ -1,0 +1,37 @@
+<%include ../_shared/header.html %>
+<form  action="/user/login" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="username">username</label>
+        <div class="col-md-10">
+            <input type="text"  class="form-control" id="username" name="username" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="password">password</label>
+        <div class="col-md-10">
+            <input type="text" class="form-control" id="password" name="password"/>
+        </div>
+    </div>
+    <button class="btn btn-info" type="submit">login</button>
+</form>
+<%include ../_shared/footer.html %>
+
+<script>
+    $(function () {
+        /* 判断用户名是否存在*/
+        $('input[name=username]').blur(function () {
+            var name = $(this).val();
+            if(name){
+                $.ajax({
+                    url:'/user/user/'+ name,
+                    type:'get',
+                    success: function (result) {
+                        if(result.code== 1){
+                            alertInfo('此用户不存在');
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>

@@ -1,0 +1,76 @@
+<%include ../_shared/header.html %>
+<form action="/article/article<% if(locals.article&&article.id){%>/<%= article.id %> <%}%>" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-xs-3" for="title">title</label>
+        <div class="col-xs-6 input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></div>
+            <input type="text" name="title" id="title" class="form-control inputBox"  value="<%= locals.article&&article?article.title:'' %> " />
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label col-xs-3" for="content">content</label>
+        <div class="col-xs-6 input-group">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-list-alt"></span></div>
+            <textarea class="form-control inputBox" name="content" id="content" cols="30" rows="10"> <%= locals.article&&article?article.content:'' %>   </textarea>
+        </div>
+    </div>
+    
+    <%if(locals.article&&locals.article.updateTime){ %>
+    <div class="from-group">
+        <label class="control-label col-xs-3"></label>
+        <div class="col-xs-6 input-group">
+            <p> 更新时间 <%= article.updateTime%></p>
+        </div>
+    </div>
+    <%}%>
+
+    <%if(locals.article&&locals.article.user){ %>
+    <div class="from-group">
+        <label class="control-label col-xs-3"></label>
+        <div class="col-xs-6 input-group">
+            <p> 文章作者 <%= article.user%></p>
+        </div>
+    </div>
+    <%}%>
+
+
+    <div class="from-group">
+    <div class="col-xs-offset-3">
+        <button class="btn btn-info " type="submit">send</button>
+    </div>	
+    </div>
+    
+
+</form>
+
+
+<%if(locals.article){ %>
+
+<div class="from-group">
+    <p></p>
+    <div class="col-xs-offset-3">
+        <button data-toggle="modal" data-target=".bs-example-modal-sm" data-id="<%=article.id%>" class="btn btn-info">删除该文章</button>
+    </div>
+</div>
+<%}%>
+
+<%include ../_shared/deleteModal.html%>
+
+
+
+<%include ../_shared/footer.html %>
+<script>
+    $('.articleDelete').click(function () {
+        $.ajax({
+            url:'/article/article/'+$(this).attr('data-id'),
+            type:'delete',
+            success: function (result) {
+                if(result.code == 0){
+                    window.location.href = '/article/articles'
+                }
+            }
+        })
+    })
+</script>

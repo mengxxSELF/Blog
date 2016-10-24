@@ -1,0 +1,29 @@
+<nav>
+    <ul class="pagination">
+        <li  class="<%=NowPageNum==1?'disabled':''   %>" >
+            <a  onclick="goto(<%=NowPageNum-1%>)" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <%
+        for(var i=1;i<totalPage+1;i++ ){ %>
+        <li class="<%=NowPageNum==i?'active':''%>"><a onclick="goto(<%=i%>)">  <%=i%>  </a></li>
+        <% }
+        %>
+        <li class="<%=NowPageNum==totalPage?'disabled':''   %>"  >
+            <a onclick="goto(<%= parseInt(NowPageNum)+1 %>)" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    function goto(pageNum){
+        var pageSize = 2;
+        var theUrl = '/article/articles?pageSize='+pageSize+'&pageNum='+pageNum;
+        window.location.href = theUrl;
+    }
+</script>
+

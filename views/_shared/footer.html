@@ -1,0 +1,24 @@
+</div>
+<script src="/lib/jquery/dist/jquery.min.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script>
+    /* 提示信息*/
+    function alertInfo(text){
+        $('.alert-warning').text(text).slideDown();
+        setTimeout(function () {
+            $('.alert-warning').text('').slideUp();
+        },2000)
+    }
+    $(function () {
+        if($('.alert-danger')||$('.alert-success')){
+            setTimeout(function () {
+                $('.alert-danger , .alert-success').text('').slideUp();
+            },2000)
+        }
+    })
+
+</script>
+
+</body>
+</html>

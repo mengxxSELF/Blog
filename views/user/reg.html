@@ -1,0 +1,89 @@
+<%include ../_shared/header.html%>
+
+<form action="/user/reg" enctype="multipart/form-data" method="post" onsubmit="return validateForm()" class="form-horizontal">
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="username">username</label>
+        <div class="col-md-10">
+            <input type="text"  class="form-control" id="username" name="username" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="password">password</label>
+        <div class="col-md-10">
+            <input type="password" class="form-control" id="password" name="password"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="repassword">repassword</label>
+        <div class="col-md-10">
+            <input type="password" class="form-control" id="repassword" name="repassword"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-md-2 control-label" for="avatar">avatar</label>
+        <div class="col-md-10">
+            <input type="file" accept="image/*" name="avatar" id="avatar" class="form-control"/>
+            <div class="avatarImg"></div>
+        </div>
+    </div>
+    <button class="btn btn-info" type="submit">sumbit</button>
+</form>
+
+<%include ../_shared/footer.html%>
+
+
+<script>
+    $(function () {
+        /* 判断用户名是否存在*/
+        $('input[name=username]').blur(function () {
+            var name = $(this).val();
+            if(name){
+                $.ajax({
+                    url:'/user/user/'+ name,
+                    type:'get',
+                    success: function (result) {
+                        if(result.code== 0){
+                            alertInfo('用户名已经存在');
+                        }
+                    }
+                })
+            }
+        })
+        /* 密码重复判断*/
+        $('input[name=repassword]').blur(function () {
+            if($(this).val()!= $('input[name=password]').val()){
+                alertInfo('两次密码输入不一致，请重新设置密码');
+            }
+        })
+
+    })
+    /* 表单检测*/
+    function validateForm(){
+        var status = true;
+        if(!$('input[name=username]').val()||$('input[name=username]').val().length==0) {
+            alertInfo('用户名不得为空');
+            status =false;
+        }
+        if(!$('input[name=password]').val()||$('input[name=password]').val().length==0) {
+            alertInfo('请填写密码');
+            status =false;
+        }
+        if(!$('input[name=repassword]').val()||$('input[name=repassword]').val().length==0) {
+            alertInfo('请重复密码');
+            status =false;
+        }
+        return status;
+    }
+    /* 图片预览 */
+    document.getElementById('avatar').onchange = function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        // 图像文件以Data URL形式进行读入页面
+        reader.readAsDataURL(file);
+        reader.onload = function(e){
+            /* 图片预览*/
+            document.querySelector('.avatarImg').innerHTML = '<img class="img-thumbnail" src="'+this.result+'" alt=""/>';
+        }
+    }
+
+</script>
