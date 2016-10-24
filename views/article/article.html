@@ -51,7 +51,7 @@
 <div class="from-group">
     <p></p>
     <div class="col-xs-offset-3">
-        <button data-toggle="modal" data-target=".bs-example-modal-sm" data-id="<%=article.id%>" class="btn btn-info">删除该文章</button>
+        <button data-toggle="modal" data-target="#deleteModal" data-id="<%=article.id%>" class="btn btn-info btn-delete">删除该文章</button>
     </div>
 </div>
 <%}%>
@@ -62,15 +62,18 @@
 
 <%include ../_shared/footer.html %>
 <script>
-    $('.articleDelete').click(function () {
-        $.ajax({
-            url:'/article/article/'+$(this).attr('data-id'),
-            type:'delete',
-            success: function (result) {
-                if(result.code == 0){
-                    window.location.href = '/article/articles'
+    $('button.btn-delete').click(function () {
+        var id =$(this).attr('data-id');
+        $('.articleDelete').click(function () {
+            $.ajax({
+                url:'/article/article/'+ id,
+                type:'delete',
+                success: function (result) {
+                    if(result.code == 0){
+                        window.location.href = '/article/articles'
+                    }
                 }
-            }
+            })
         })
     })
 </script>
