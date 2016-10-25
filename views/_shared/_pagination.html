@@ -20,18 +20,24 @@
 
 
 <script>
-    console.log( window.location.search)
-    var search =   window.location.search.split('&');
-    console.log(search)
-    var username = new RegExp('search');
-    var end = search.filter(function (item) {
-        return item.match(username)
-    })
-    console.log(end)
+    var search = window.location.search.split('&');
+    var findUser = /username/  ;
+    var findKeyword = /keyword/  ;
+    var userEnd = search.filter(function (item) {
+        return findUser.exec(item) ;
+    });
+    var keywordEnd = search.filter(function (item) {
+        return findKeyword.exec(item) ;
+    });
     function goto(pageNum){
         var pageSize = 2;
         var theUrl = '/article/articles?pageSize='+pageSize+'&pageNum='+pageNum;
-
+        if(userEnd.length>0){
+            theUrl += '&'+ userEnd[0].slice(0);
+        }
+        if(keywordEnd.length>0){
+            theUrl += '&'+ keywordEnd[0].slice(0);
+        }
         window.location.href = theUrl;
     }
 </script>
