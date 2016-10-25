@@ -11,7 +11,11 @@ exports.articles = function (req,res,next) {
     var method = req.method.toLowerCase();
     if(method=='get'){
         var sessions = [];
-        if(auth.getSession()){
+        /* 文章分页*/
+        var pageNum = parseInt(req.query.pageNum) || 1; /* 当前页数*/
+        var pageSize = parseInt(req.query.pageSize) || 2; /* 每页最大文章数目*/
+
+        if(auth.getSession()){  /* 读取所有文章*/
             sessions = auth.getSession(pathObj);
         };
         var result =[];
@@ -19,36 +23,27 @@ exports.articles = function (req,res,next) {
             result  = sessions.reverse(); /* 全部文章*/
         }
 
-
-
-        /* 文章分页*/
-        var pageNum = parseInt(req.query.pageNum) || 1; /* 当前页数*/
-        var pageSize = parseInt(req.query.pageSize) || 2; /* 每页最大文章数目*/
-
-
-
-
-        if(req.params.username){
+        if(req.query.username){
             /* 个人文章列表*/
-            result = sessions.filter(function (item) {
-                return item.user == req.params.username;
+            result = result.filter(function (item) {
+                return item.user == req.query.username;
             });
         }
 
         if(req.query.keyword&&req.query.keyword!=''){
             /* 文章搜索*/
             var keyword = new RegExp(req.query.keyword);
-            result = sessions.filter(function (item) {
+            result = result.filter(function (item) {
                 return item.content.match(keyword)||item.title.match(keyword)
             })
         }
-
-
+        console.log('查询结果',result.length)
+        console.log('查询结果',result)
 
         var totalPage = Math.ceil(result.length/pageSize); /* 文章总数*/
         result = result.splice((pageNum-1)*pageSize,pageSize);  /* 分页*/
 
-        console.log('查询结果',result)
+
         res.render('article/articles',{articles:result,totalPage:totalPage,NowPageNum:pageNum});
     }
 };

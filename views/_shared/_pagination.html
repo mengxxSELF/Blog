@@ -20,9 +20,18 @@
 
 
 <script>
+    console.log( window.location.search)
+    var search =   window.location.search.split('&');
+    console.log(search)
+    var username = new RegExp('search');
+    var end = search.filter(function (item) {
+        return item.match(username)
+    })
+    console.log(end)
     function goto(pageNum){
         var pageSize = 2;
         var theUrl = '/article/articles?pageSize='+pageSize+'&pageNum='+pageNum;
+
         window.location.href = theUrl;
     }
 </script>

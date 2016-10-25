@@ -7,7 +7,7 @@ articles.forEach(function(article){ %>
     <div class="panel-body">
         <%-article.content%>
         <p class="pull-right"> 作者:
-            <a href="/article/articles/<%=article.user%>"><%=article.user%></a>
+            <a href="/article/articles?username=<%=article.user%>"><%=article.user%></a>
             <%if(article.time){%>
             发表日期: <%=article.time%>
             <%}%>
