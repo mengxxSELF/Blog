@@ -29,7 +29,6 @@ exports.articles = function (req,res,next) {
                 return item.user == req.query.username;
             });
         }
-        console.log(req.query.keyword)
         if(req.query.keyword&&req.query.keyword!=''){
             /* 文章搜索*/
             var keyword = new RegExp(req.query.keyword);
@@ -38,12 +37,8 @@ exports.articles = function (req,res,next) {
             })
         }
 
-        console.log('查询结果',result.length)
-        //console.log('查询结果',result)
-
         var totalPage = Math.ceil(result.length/pageSize); /* 文章总数*/
         result = result.splice((pageNum-1)*pageSize,pageSize);  /* 分页*/
-
 
         res.render('article/articles',{articles:result,totalPage:totalPage,NowPageNum:pageNum});
     }

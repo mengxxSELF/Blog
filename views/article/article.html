@@ -36,17 +36,20 @@
     <%}%>
 
 
+    <%if(locals.article&&locals.username==article.user){ %>
     <div class="from-group">
     <div class="col-xs-offset-3">
         <button class="btn btn-info " type="submit">send</button>
     </div>	
     </div>
-    
+    <%}%>
+
 
 </form>
 
 
-<%if(locals.article){ %>
+<%if(locals.article&&locals.username==article.user){ %>
+
 
 <div class="from-group">
     <p></p>
@@ -64,26 +67,6 @@
 <script>
     $('button.btn-delete').click(function () {
         var id =$(this).attr('data-id');
-
-        $('.articleDelete').click(function () {
-            deleteModal();
-        })
-        $(document).keydown(function (e) {
-            if(e.keyCode==13){
-                deleteModal();
-            }
-        })
-
-        function deleteModal(){
-            $.ajax({
-                url:'/article/article/'+ id,
-                type:'delete',
-                success: function (result) {
-                    if(result.code == 0){
-                        window.location.href = '/article/articles'
-                    }
-                }
-            })
-        };
+        deleteArt(id)
     })
 </script>

@@ -13,3 +13,28 @@
     </div>
 </div>
 
+<script>
+    function deleteArt(id){
+
+        $('.articleDelete').click(function () {
+            deleteModal();
+        })
+        $(document).keydown(function (e) {
+            if(e.keyCode==13){
+                deleteModal();
+            }
+        })
+
+        function deleteModal(){
+            $.ajax({
+                url:'/article/article/'+ id,
+                type:'delete',
+                success: function (result) {
+                    if(result.code == 0){
+                        window.location.href = '/article/articles'
+                    }
+                }
+            })
+        };
+    }
+</script>
