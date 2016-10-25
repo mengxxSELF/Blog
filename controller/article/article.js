@@ -103,7 +103,11 @@ exports.article = function (req,res,next) {
         }
 
         if(result.length>0){
-            res.render('article/article',{article:result[0]});
+            if(req.url.indexOf('/article/article/')>-1){
+                res.render('article/article',{article:result[0]});
+            }else if(req.url.indexOf('/article/detail/')>-1){
+                res.render('article/detail',{article:result[0]});
+            }
         }else{
             res.redirect('/article/articles');
         }

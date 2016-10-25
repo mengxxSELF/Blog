@@ -35,7 +35,8 @@ router.get('/user/logout',web.user.logout); /* 退出登录*/
 router.get('/article/articles',web.article.articles); /*文章列表*/
 router.get('/article/article',auth.mustLogin ,web.article.create); /*文章发表*/
 router.post('/article/article',/*[auth.mustLogin] ,*/web.article.create); /*发表文章*/
-router.get('/article/article/:id',web.article.article); /*文章详情*/
+router.get('/article/detail/:id',web.article.article); /*文章详情*/
+router.get('/article/article/:id',web.article.article); /*文章修改*/
 router.post('/article/article/:id',web.article.article); /*文章修改*/
 router.delete('/article/article/:id',web.article.article); /*文章删除*/
 

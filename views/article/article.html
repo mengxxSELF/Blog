@@ -27,10 +27,13 @@
     <%}%>
 
     <%if(locals.article&&locals.article.user){ %>
-    <div class="from-group">
+    <div class="from-group row">
         <label class="control-label col-xs-3"></label>
-        <div class="col-xs-6 input-group">
-            <p> 文章作者 <%= article.user%></p>
+        <div class="col-xs-6 pull-left input-group">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success"> 文章作者 <%= article.user%>  </li>
+                <li class="list-group-item list-group-item-info">发表日期: <%=article.time%></li>
+            </ul>
         </div>
     </div>
     <%}%>
