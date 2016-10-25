@@ -15,21 +15,40 @@ exports.articles = function (req,res,next) {
             sessions = auth.getSession(pathObj);
         };
         var result =[];
+        if(sessions.length>0){
+            result  = sessions.reverse(); /* 全部文章*/
+        }
+
+
 
         /* 文章分页*/
         var pageNum = parseInt(req.query.pageNum) || 1; /* 当前页数*/
         var pageSize = parseInt(req.query.pageSize) || 2; /* 每页最大文章数目*/
 
-        var totalPage = Math.ceil(sessions.length/pageSize); /* 文章总数*/
+
+
+
         if(req.params.username){
             /* 个人文章列表*/
             result = sessions.filter(function (item) {
                 return item.user == req.params.username;
             });
-        }else{
-            result  = sessions.reverse(); /* 全部文章*/
         }
+
+        if(req.query.keyword&&req.query.keyword!=''){
+            /* 文章搜索*/
+            var keyword = new RegExp(req.query.keyword);
+            result = sessions.filter(function (item) {
+                return item.content.match(keyword)||item.title.match(keyword)
+            })
+        }
+
+
+
+        var totalPage = Math.ceil(result.length/pageSize); /* 文章总数*/
         result = result.splice((pageNum-1)*pageSize,pageSize);  /* 分页*/
+
+        console.log('查询结果',result)
         res.render('article/articles',{articles:result,totalPage:totalPage,NowPageNum:pageNum});
     }
 };

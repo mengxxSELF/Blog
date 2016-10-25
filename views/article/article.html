@@ -64,7 +64,17 @@
 <script>
     $('button.btn-delete').click(function () {
         var id =$(this).attr('data-id');
+
         $('.articleDelete').click(function () {
+            deleteModal();
+        })
+        $(document).keydown(function (e) {
+            if(e.keyCode==13){
+                deleteModal();
+            }
+        })
+
+        function deleteModal(){
             $.ajax({
                 url:'/article/article/'+ id,
                 type:'delete',
@@ -74,6 +84,6 @@
                     }
                 }
             })
-        })
+        };
     })
 </script>
