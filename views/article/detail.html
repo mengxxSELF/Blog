@@ -18,7 +18,7 @@
         <%}%>
         <%if(locals.article&&locals.username==article.user){ %>
         <li class="list-group-item ">
-            <button data-toggle="modal" data-target="#deleteModal" data-id="<%=article.id%>" class="btn btn-info btn-delete">删除该文章</button>
+            <button data-toggle="modal" data-target="#deleteModal" data-id="<%=article.id%>" class="btn btn-info btnDelete">删除该文章</button>
             <a  href="/article/article/<%=article.id%>" class="btn btn-default"> 编辑文章</a>
         </li>
         <%}%>
@@ -81,7 +81,7 @@
 <%include ../_shared/footer.html %>
 <script>
     /* 文章删除*/
-    $('button.btn-delete').click(function () {
+    $('button.btnDelete').click(function () {
         var id =$(this).attr('data-id');
         var url = '/article/article/'+ id;
         var renderUrl = '/article/articles' ;

@@ -226,9 +226,9 @@ exports.comments= function (req,res,next) {
         }], function (err,sessions) {
             if(sessions){
                 auth.setSession(sessions,pathObj);
-                res.redirect('/article/detail/'+ req.params.id)
+                res.json({code:0,message:'评论删除成功'});
             }else{
-                res.redirect('/article/articles')
+                res.json({code:-1,message:'评论删除失败'});
             }
         })
     }

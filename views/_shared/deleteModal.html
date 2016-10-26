@@ -17,15 +17,15 @@
     function deleteArt(url,renderUrl){
 
         $('.btnDelete').click(function () {
-            deleteModal();
+            deleteModal(url,renderUrl);
         })
         $(document).keydown(function (e) {
             if(e.keyCode==13){
-                deleteModal();
+                deleteModal(url,renderUrl);
             }
         })
 
-        function deleteModal(){
+        function deleteModal(url,renderUrl){
             $.ajax({
                 url:url,
                 type:'delete',
