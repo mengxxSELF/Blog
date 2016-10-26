@@ -47,6 +47,7 @@ app.use('*',function (req, res, next) {
     res.locals.username =req.cookies.user.name||'' ;
     res.locals.avatar = req.cookies.user.avatar||'' ;
   }
+  res.locals.title = '博客';
   next();
 })
 

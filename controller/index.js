@@ -2,7 +2,7 @@
 
 module.exports={
     default: function (req,res,next) {
-        res.render('index',{title:'博客'});
+        res.redirect('/article/articles');
     },
     user:require('./user/user'),
     article:require('./article/article'),

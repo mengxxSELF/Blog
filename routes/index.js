@@ -22,6 +22,10 @@ var upload = multer({ storage: storage })
 
 router.get('/',web.default);/* 首页*/
 
+
+
+
+
 /* 用户 */
 router.get('/user/reg',web.user.reg); /* 注册*/
 router.post('/user/reg',upload.single('avatar'),web.user.reg); /* 注册*/
