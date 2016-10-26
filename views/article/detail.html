@@ -22,12 +22,30 @@
             <a  href="/article/article/<%=article.id%>" class="btn btn-default"> 编辑文章</a>
         </li>
         <%}%>
-
-
     </ul>
 
 
+
+
 </div>
+
+<%if(locals.article&&article.comments){ %>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-warning">文章评论</li>
+    <%locals.article.comments.forEach(function(comment){ %>
+    <li class="list-group-item">
+        <%= comment.content %>
+        <p data-writer="<%=comment.writer%>">评论人: <%= comment.writer %>    </p>
+        <%if(locals.article&&locals.username ==article.user){ %>
+        <button data-toggle="modal" data-target="#deleteModal" data-commentId="<%=comment.id%>"  data-articleId="<%=article.id%>" class="btn btn-default commentDelete">删除该评论</button>
+        <% }%>
+
+    </li>
+    <% })%>
+</ul>
+<%}%>
+
+
 
 <%if(locals.article&&locals.username !=article.user){ %>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -41,7 +59,13 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-                <textarea name="comments" id="" cols="30" rows="10"></textarea>
+
+                <form action="/article/comments/<%= locals.article.id %>" method="post">
+                    <textarea class="form-control"  name="comment" rows="3"></textarea>
+                    <button class="btn btn-info" type="submit">提交评论</button>
+                </form>
+
+
             </div>
         </div>
     </div>
@@ -50,18 +74,26 @@
 <%}%>
 
 
-
-
-
-
 <%include ../_shared/deleteModal.html%>
 
 
 
 <%include ../_shared/footer.html %>
 <script>
+    /* 文章删除*/
     $('button.btn-delete').click(function () {
         var id =$(this).attr('data-id');
-        deleteArt(id)
+        var url = '/article/article/'+ id;
+        var renderUrl = '/article/articles' ;
+        deleteArt(url,renderUrl)
     })
+    /* 评论删除*/
+    $('button.commentDelete').click(function () {
+        var articleId =$(this).attr('data-articleId');
+        var commentId =$(this).attr('data-commentId');
+        var url = '/article/comments/'+ articleId + '/' + commentId;
+        var renderUrl = '/article/detail/'+articleId ;
+        deleteArt(url,renderUrl)
+    })
+
 </script>

@@ -42,6 +42,11 @@ router.delete('/article/article/:id',web.article.article); /*文章删除*/
 
 
 
+router.post('/article/comments/:id', auth.mustLogin ,web.article.comments); /*文章评论*/
+router.delete('/article/comments/:articleId/:commentId', auth.mustLogin ,web.article.comments); /* 删除文章评论*/
+
+
+
 
 
 

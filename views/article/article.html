@@ -39,7 +39,7 @@
     <%}%>
 
 
-    <%if(locals.article&&locals.username==article.user){ %>
+    <%if( !locals.article ||(locals.article&&locals.username==article.user) ){ %>
     <div class="from-group">
     <div class="col-xs-offset-3">
         <button class="btn btn-info " type="submit">send</button>
@@ -68,8 +68,11 @@
 
 <%include ../_shared/footer.html %>
 <script>
+    /* 文章删除*/
     $('button.btn-delete').click(function () {
         var id =$(this).attr('data-id');
-        deleteArt(id)
+        var url = '/article/article/'+ id;
+        var renderUrl = '/article/articles' ;
+        deleteArt(url,renderUrl)
     })
 </script>

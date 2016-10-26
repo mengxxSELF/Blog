@@ -165,3 +165,74 @@ exports.article = function (req,res,next) {
     }
 }
 
+exports.comments= function (req,res,next) {
+    var method = req.method.toLowerCase();
+
+    var sessions = [];
+    if(auth.getSession()){
+        sessions = auth.getSession(pathObj);
+    };
+
+    if(method=='post'){
+        var comment = {id:0 ,content:'',writer:''};
+        comment.content = req.body.comment; // 内容
+        comment.writer = req.cookies['user'].name; //取得此客户端的username
+        async.waterfall([function (callback) {
+            /* 根据id找到文章*/
+            sessions.forEach(function (article,index) {
+                if(article.id==req.params.id){
+                    callback(null,article)
+                }
+            })
+        }, function (article,callback) {
+
+            if(!article.comments ||(article.comments&&article.comments.length==0) ){  /* 如果之前没有评论*/
+                article.comments =[];
+                comment.id=0;/* 增加id字段*/
+            }else{
+                comment.id= parseInt(article.comments[article.comments.length-1].id)+1  ;
+            }
+            article.comments.unshift(comment);
+
+            callback(null,sessions)
+        }], function (err,sessions) {
+            if(sessions){
+                auth.setSession(sessions,pathObj);
+                res.redirect('/article/detail/'+ req.params.id)
+            }else{
+                res.redirect('/article/articles')
+            }
+        })
+    }else if(method=='delete'){
+
+        var articleId = req.params.articleId; /* 文章id*/
+        var commentId = req.params.commentId;/* 评论id*/
+        async.waterfall([function (callback) {
+            /* 根据id找到文章*/
+            sessions.forEach(function (article,index) {
+                if(article.id==articleId){
+                    callback(null,article)
+                }
+            })
+        }, function (article,callback) {
+            if(article.comments&&article.comments.length>0){  /* 删除评论id*/
+                article.comments = article.comments.filter(function (item) {
+                    return item.id != commentId;
+                });
+                callback(null,sessions)
+            }else{
+                callback(null)
+            }
+        }], function (err,sessions) {
+            if(sessions){
+                auth.setSession(sessions,pathObj);
+                res.redirect('/article/detail/'+ req.params.id)
+            }else{
+                res.redirect('/article/articles')
+            }
+        })
+    }
+
+
+
+}

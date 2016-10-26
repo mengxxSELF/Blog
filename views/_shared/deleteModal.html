@@ -7,16 +7,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary articleDelete" data-dismiss="modal">确认删除</button>
+                <button type="button" class="btn btn-primary btnDelete" data-dismiss="modal">确认删除</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function deleteArt(id){
+    function deleteArt(url,renderUrl){
 
-        $('.articleDelete').click(function () {
+        $('.btnDelete').click(function () {
             deleteModal();
         })
         $(document).keydown(function (e) {
@@ -27,11 +27,11 @@
 
         function deleteModal(){
             $.ajax({
-                url:'/article/article/'+ id,
+                url:url,
                 type:'delete',
                 success: function (result) {
                     if(result.code == 0){
-                        window.location.href = '/article/articles'
+                        window.location.href =  renderUrl;
                     }
                 }
             })

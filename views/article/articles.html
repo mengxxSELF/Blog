@@ -1,7 +1,6 @@
 <%include ../_shared/header.html%>
 
-<%
-articles.forEach(function(article){ %>
+<%articles.forEach(function(article){ %>
 <div class="panel panel-info">
     <div class="panel-heading"><a href="/article/detail/<%=article.id%>"><%=article.title%></a> </div>
     <div class="panel-body">
@@ -15,8 +14,7 @@ articles.forEach(function(article){ %>
     </div>
 </div>
 
-<% })
-%>
+<% })%>
 
 <%include ../_shared/_pagination.html%>
 
