@@ -1,15 +1,3 @@
-# 博客项目
-
-
-
-## 文章详情页
-*  不是作者没有删除文章权限
-*  是作者没有评论自己文章的权限
-
-
-
-
-
 # 个人博客项目
 * 基于nodejs && express的后台服务
 * 基于jquery && bootstrap的前端网页构建
@@ -29,7 +17,7 @@
 ```
 > $ git clone https://github.com/mengxxSELF/Blog.git
 ```
-在vote目录下安装依赖包
+在当前目录下安装依赖包
 
 ```
 > $ npm install
