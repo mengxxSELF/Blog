@@ -19,14 +19,22 @@
             <input type="password" class="form-control" id="repassword" name="repassword"/>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group ">
         <label  class="col-md-2 control-label" for="avatar">avatar</label>
         <div class="col-md-10">
-            <input type="file" accept="image/*" name="avatar" id="avatar" class="form-control"/>
+            <button class="btn btn-info avatarLoad"> 选择头像
+                <input type="file" accept="image/*" name="avatar" id="avatar" class="form-control"/>
+            </button>
             <div class="avatarImg"></div>
         </div>
     </div>
-    <button class="btn btn-info" type="submit">sumbit</button>
+    <div class="form-group ">
+        <label  class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <button class="btn btn-info" type="submit">sumbit</button>
+        </div>
+    </div>
+
 </form>
 
 <%include ../_shared/footer.html%>
@@ -82,7 +90,7 @@
         reader.readAsDataURL(file);
         reader.onload = function(e){
             /* 图片预览*/
-            document.querySelector('.avatarImg').innerHTML = '<img class="img-thumbnail" src="'+this.result+'" alt=""/>';
+            document.querySelector('.avatarImg').innerHTML = '<img class="img-thumbnail" style="max-width:200px;max-height:200px;" src="'+this.result+'" alt=""/>';
         }
     }
 

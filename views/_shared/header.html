@@ -3,12 +3,7 @@
 <head>
     <title><%= locals.title%></title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css">
-    <style>
-        body , .btn ,p {text-transform: capitalize ;}
-        .alert-warning{  display: none;}
-        .errorBox{ border-color: red;}
-        .errorMsg{color:red;}
-    </style>
+    <link rel="stylesheet" href="/css/blog.css"/>
 </head>
 <body>
 <nav class="navbar navbar-inverse">
@@ -35,9 +30,8 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">
-                    <img class="img-circle" style="width:50px" src="<%= locals.avatar?avatar:'' %>" alt="">  <%= locals.username?username:'' %> </a>
+                    <img class="img-circle" style="max-width:50px;max-height: 50px;" src="<%= locals.avatar?avatar:'' %>" alt="">  <%= locals.username?username:'' %> </a>
                 </li>
-                <!--<li><a href="#" class="avatarImg">   </a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle username " data-user="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">  <span class="caret"></span></a>
                     <ul class="dropdown-menu">
